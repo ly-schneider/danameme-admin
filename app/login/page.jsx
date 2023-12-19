@@ -47,19 +47,23 @@ export default function LoginPage() {
         return false;
       }
 
-      const banData = await checkBan(accountData.id_account);
-      let banCond = false;
-      if (banData.length > 0) {
-        banData.forEach((ban) => {
-          if (ban.type == "account") {
-            setBanned(true);
-            setBanData(ban);
-            banCond = true;
-          }
-        });
+      const { data: roleData, error: roleError } = await supabase
+        .from("profile")
+        .select("role_id")
+        .eq("account_id", accountData.id_account)
+        .single();
+
+      if (roleError) {
+        console.log(roleError);
+        return false;
       }
 
-      if (!banCond) {
+      let permitted = false;
+      if (roleData.role_id == 1 || roleData.role_id == 2) {
+        permitted = true;
+      }
+
+      if (permitted) {
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email,
           password: password,
@@ -71,6 +75,14 @@ export default function LoginPage() {
           return false;
         }
         location.href = "/";
+      } else {
+        setErrorEmail(
+          "Du bist nicht berechtigt auf diese Applikation zuzugreifen."
+        );
+        setErrorPassword(
+          "Du bist nicht berechtigt auf diese Applikation zuzugreifen."
+        );
+        return false;
       }
     }
   }
@@ -155,12 +167,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="flex justify-between mt-5">
-              <Link href="/register">
-                <button className="btn-secondary text text-sm" type="button">
-                  Registrieren
-                </button>
-              </Link>
+            <div className="flex justify-end mt-5">
               <button className="btn-primary text text-sm" type="submit">
                 Anmelden
               </button>
