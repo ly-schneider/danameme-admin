@@ -361,40 +361,6 @@ export default function ProfilePage({ params }) {
                 {profile.username}
               </h1>
             </div>
-            {profileSession.id_profile != profile.id_profile && (
-              <div className="[&>div]:bg-background [&>div]:border-[3px] [&>div]:border-primary [&>div]:rounded-md flex items-center">
-                <Dropdown
-                  dismissOnClick={false}
-                  label=""
-                  renderTrigger={() => (
-                    <FontAwesomeIcon
-                      icon={faEllipsisH}
-                      className="ms-4 text-muted text-2xl hover:cursor-pointer"
-                    />
-                  )}
-                >
-                  <Dropdown.Item
-                    className="text text-sm hover:bg-accentBackground"
-                    onClick={async () => {
-                      const status = await handleProfileReport(
-                        profile.id_profile,
-                        profileSession.id_profile
-                      );
-
-                      if (status == true) {
-                        setSuccess("Profil wurde erfolgreich gemeldet!");
-                        setTimeout(() => {
-                          setSuccess("");
-                        }, 3000);
-                      }
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faFlag} className="me-1.5" />
-                    Report
-                  </Dropdown.Item>
-                </Dropdown>
-              </div>
-            )}
           </div>
           <div className="w-full mt-3">
             <p className="text-muted text text-sm">Beigetreten {joined}</p>
@@ -459,61 +425,42 @@ export default function ProfilePage({ params }) {
                           />
                         )}
                       >
-                        {profileSession.id_profile ==
-                        post.profile.id_profile ? (
-                          <>
-                            <Dropdown.Item
-                              className="text text-sm hover:bg-accentBackground"
-                              onClick={() =>
-                                router.push(`/post/${generateTitle(post)}/edit`)
-                              }
-                            >
-                              <FontAwesomeIcon
-                                icon={faPen}
-                                className="me-1.5"
-                              />
-                              Bearbeiten
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              className="text text-sm hover:bg-accentBackground"
-                              onClick={async () => {
-                                await handlePostDelete(post.id_post);
-                                const newPosts = await getPosts(
-                                  profile.id_profile,
-                                  profileSession.id_profile
-                                );
-                                setPosts(newPosts);
-                              }}
-                            >
-                              <FontAwesomeIcon
-                                icon={faTrashCan}
-                                className="me-1.5"
-                              />
-                              Löschen
-                            </Dropdown.Item>
-                          </>
-                        ) : (
-                          <Dropdown.Item
-                            className="text text-sm hover:bg-accentBackground"
-                            onClick={async () => {
-                              const status = await handlePostReport(
-                                post.id_post,
-                                profileSession.id_profile
-                              );
-                              if (status == true) {
-                                setSuccess(
-                                  "Beitrag wurde erfolgreich gemeldet!"
-                                );
-                                setTimeout(() => {
-                                  setSuccess("");
-                                }, 3000);
-                              }
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faFlag} className="me-1.5" />
-                            Report
-                          </Dropdown.Item>
-                        )}
+                        <Dropdown.Item
+                          className="text text-sm hover:bg-accentBackground"
+                          onClick={async () => {
+                            await handlePostDelete(post.id_post);
+                            const newPosts = await getPosts(
+                              profile.id_profile,
+                              profileSession.id_profile
+                            );
+                            setPosts(newPosts);
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faTrashCan}
+                            className="me-1.5"
+                          />
+                          Löschen
+                        </Dropdown.Item>
+
+                        <Dropdown.Item
+                          className="text text-sm hover:bg-accentBackground"
+                          onClick={async () => {
+                            const status = await handlePostReport(
+                              post.id_post,
+                              profileSession.id_profile
+                            );
+                            if (status == true) {
+                              setSuccess("Beitrag wurde erfolgreich gemeldet!");
+                              setTimeout(() => {
+                                setSuccess("");
+                              }, 3000);
+                            }
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faFlag} className="me-1.5" />
+                          Report
+                        </Dropdown.Item>
                       </Dropdown>
                     </div>
                   </div>
