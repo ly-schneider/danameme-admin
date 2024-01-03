@@ -16,6 +16,7 @@ module.exports = {
         accent: "#9E575D",
         placeholder: "#545454",
         muted: "#545454",
+        mutedBorder: "#282828",
         accentBackground: "#080808",
         error: "#ff4141",
         success: "#47db47",

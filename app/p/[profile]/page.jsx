@@ -19,6 +19,7 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-regular-svg-icons";
 import {
+  faArrowLeft,
   faCheckCircle,
   faEllipsisH,
   faPen,
@@ -342,7 +343,14 @@ export default function ProfilePage({ params }) {
         </Toast>
       )}
       {profileGotFound ? (
-        <div className="mx-6 sm:mx-0 mt-4">
+        <div className=" max-w-lg mx-auto mt-4 mb-16">
+          <button
+            onClick={() => router.back()}
+            className="btn-secondary text text-xs mb-4"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="me-1" />
+            Zurück
+          </button>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <img

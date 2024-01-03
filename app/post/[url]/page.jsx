@@ -296,7 +296,9 @@ export default function PostPage({ params }) {
     return (
       <div
         key={comment.id_comment}
-        className={"comment relative text [&>.comment]:ms-14 [&>.comment]:mt-6"}
+        className={
+          "max-w-lg mx-auto comment relative text [&>.comment]:ms-14 [&>.comment]:mt-6"
+        }
         id={comment.id_comment}
       >
         <a className="block absolute top-[48px] left-0 w-[12px] h-[calc(100%-50px)] border-x-[4px] bg-primary border-transparent bg-clip-padding ms-4"></a>
@@ -526,7 +528,7 @@ export default function PostPage({ params }) {
       )}
       {post.length != 0 ? (
         <>
-          <div key={post.id_post} className="mx-6 sm:mx-0 mt-2">
+          <div key={post.id_post} className="max-w-lg mx-auto mt-2">
             <button
               className="btn-secondary items-center flex"
               onClick={() => router.back()}
@@ -661,7 +663,7 @@ export default function PostPage({ params }) {
               </div>
             </div>
           </div>
-          <div className="sm:w-full mt-8 mx-6 sm:mx-0">
+          <div className="max-w-lg mx-auto sm:w-full mt-8 mb-20">
             <div className="w-full mt-3">
               <div className="flex flex-col space-y-8">
                 {commentBanned ? (

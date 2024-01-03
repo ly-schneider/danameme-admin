@@ -90,7 +90,7 @@ export default function LoginPage() {
   return (
     <>
       {banned ? (
-        <div className="flex flex-col items-center w-full mt-8">
+        <div className="max-w-sm mx-auto flex flex-col items-center w-full mt-8">
           <h1 className="title font-extrabold text-error">Banned!</h1>
           <h1 className="title text-lg font-extrabold text-error">
             Bis: {calcTime(banData.until)}
@@ -104,7 +104,7 @@ export default function LoginPage() {
           </p>
         </div>
       ) : (
-        <div className="mx-12 sm:mx-20 mt-8">
+        <div className="max-w-sm mx-auto mt-32">
           <h1 className="title text-center font-bold">Login</h1>
           <form onSubmit={(e) => handleSubmit(e)} className="mt-8">
             <div>
