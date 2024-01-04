@@ -296,9 +296,7 @@ export default function PostPage({ params }) {
     return (
       <div
         key={comment.id_comment}
-        className={
-          "max-w-lg mx-auto comment relative text [&>.comment]:ms-14 [&>.comment]:mt-6"
-        }
+        className={"comment relative text [&>.comment]:ms-14 [&>.comment]:mt-6"}
         id={comment.id_comment}
       >
         <a className="block absolute top-[48px] left-0 w-[12px] h-[calc(100%-50px)] border-x-[4px] bg-primary border-transparent bg-clip-padding ms-4"></a>
@@ -336,56 +334,34 @@ export default function PostPage({ params }) {
                   />
                 )}
               >
-                {profile.id_profile == comment.profile.id_profile ? (
-                  <>
-                    <Dropdown.Item
-                      className={
-                        (commentBanned
-                          ? "pointer-events-none text-muted hover:bg-inherit"
-                          : "hover:bg-accentBackground") + " text text-sm"
-                      }
-                      onClick={() => {
-                        setEditComment(!editComment);
-                        setCommentText(comment.text);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPen} className="me-1.5" />
-                      Bearbeiten
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      className="text text-sm hover:bg-accentBackground"
-                      onClick={async () => {
-                        await handleCommentDelete(comment.id_comment);
-                        const newComments = await fetchComments(
-                          post.id_post,
-                          profile.id_profile
-                        );
-                        setComments(newComments);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTrashCan} className="me-1.5" />
-                      Löschen
-                    </Dropdown.Item>
-                  </>
-                ) : (
-                  <Dropdown.Item
-                    className="text text-sm hover:bg-accentBackground"
-                    onClick={async () => {
-                      handleCommentReport(
-                        comment.id_comment,
-                        profile.id_profile
-                      );
+                <Dropdown.Item
+                  className="text text-sm hover:bg-accentBackground"
+                  onClick={async () => {
+                    await handleCommentDelete(comment.id_comment);
+                    const newComments = await fetchComments(
+                      post.id_post,
+                      profile.id_profile
+                    );
+                    setComments(newComments);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrashCan} className="me-1.5" />
+                  Löschen
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="text text-sm hover:bg-accentBackground"
+                  onClick={async () => {
+                    handleCommentReport(comment.id_comment, profile.id_profile);
 
-                      setSuccess("Kommentar wurde gemeldet!");
-                      setTimeout(() => {
-                        setSuccess("");
-                      }, 3000);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faFlag} className="me-1.5" />
-                    Report
-                  </Dropdown.Item>
-                )}
+                    setSuccess("Kommentar wurde gemeldet!");
+                    setTimeout(() => {
+                      setSuccess("");
+                    }, 3000);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faFlag} className="me-1.5" />
+                  Report
+                </Dropdown.Item>
               </Dropdown>
             </div>
           </div>
@@ -568,33 +544,30 @@ export default function PostPage({ params }) {
                       />
                     )}
                   >
-                    {profile.id_profile == post.profile.id_profile ? (
-                      <Dropdown.Item
-                        className="text text-sm hover:bg-accentBackground"
-                        onClick={async () => {
-                          await handlePostDelete(post.id_post);
-                          router.push("/");
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faTrashCan} className="me-1.5" />
-                        Delete
-                      </Dropdown.Item>
-                    ) : (
-                      <Dropdown.Item
-                        className="text text-sm hover:bg-accentBackground"
-                        onClick={async () => {
-                          handlePostReport(post.id_post, profile.id_profile);
+                    <Dropdown.Item
+                      className="text text-sm hover:bg-accentBackground"
+                      onClick={async () => {
+                        await handlePostDelete(post.id_post);
+                        router.push("/");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faTrashCan} className="me-1.5" />
+                      Delete
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      className="text text-sm hover:bg-accentBackground"
+                      onClick={async () => {
+                        handlePostReport(post.id_post, profile.id_profile);
 
-                          setSuccess("Beitrag wurde gemeldet!");
-                          setTimeout(() => {
-                            setSuccess("");
-                          }, 3000);
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faFlag} className="me-1.5" />
-                        Report
-                      </Dropdown.Item>
-                    )}
+                        setSuccess("Beitrag wurde gemeldet!");
+                        setTimeout(() => {
+                          setSuccess("");
+                        }, 3000);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faFlag} className="me-1.5" />
+                      Report
+                    </Dropdown.Item>
                   </Dropdown>
                 </div>
               </div>
