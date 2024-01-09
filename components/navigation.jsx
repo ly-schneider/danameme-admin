@@ -10,6 +10,7 @@ import { getProfile } from "./auth/getProfile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsStaggered,
+  faBullhorn,
   faChartBar,
   faComments,
   faFlag,
@@ -115,6 +116,12 @@ export default function Navigation() {
                     className="ms-1 me-2.5"
                   />
                   Bot Mitteilung
+                </p>
+              </Link>
+              <Link href={"/broadcast"}>
+                <p className={pathname == "/broadcast" ? "bg-[#545454]" : null}>
+                  <FontAwesomeIcon icon={faBullhorn} className="ms-1 me-2.5" />
+                  Broadcast
                 </p>
               </Link>
             </>
